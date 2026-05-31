@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Candidature — Tozuo · SKR Dragon Ball RP</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;900&family=Syne+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080204;--bg2:#0f0506;--bg3:#1a0a0b;
+  --white:#f0d8d8;--red:#aa3a3a;--red2:#dc6a6a;--red3:#f0b0b0;
+  --dark:#200f0f;--border:rgba(170,58,58,0.1);--border2:rgba(170,58,58,0.22);
+  --muted:rgba(240,216,216,0.5);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--white);font-family:'Cormorant Garamond',serif;overflow-x:hidden;}
+#cv{position:fixed;inset:0;z-index:0;pointer-events:none;}
+
+#load{position:fixed;inset:0;z-index:200;background:#080204;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 1s;}
+#load.hide{opacity:0;pointer-events:none;}
+.ld-tag{font-family:'Syne Mono',monospace;font-size:0.55rem;letter-spacing:6px;color:rgba(170,58,58,0.25);text-transform:uppercase;margin-bottom:2rem;}
+.ld-box{border:1px solid rgba(170,58,58,0.14);padding:3rem 3.5rem;text-align:center;position:relative;max-width:460px;width:90%;background:rgba(170,58,58,0.01);}
+.ld-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(170,58,58,0.5),transparent);}
+.ld-title{font-family:'Cinzel',serif;font-size:0.82rem;letter-spacing:5px;color:var(--red3);text-transform:uppercase;margin-bottom:0.3rem;}
+.ld-sub{font-size:0.9rem;color:rgba(170,58,58,0.4);font-style:italic;margin-bottom:1.8rem;letter-spacing:2px;}
+.ld-bw{width:100%;height:1px;background:rgba(170,58,58,0.06);margin-bottom:0.6rem;overflow:hidden;}
+.ld-bf{height:100%;background:linear-gradient(90deg,transparent,var(--red2),transparent);width:0%;}
+.ld-pct{font-family:'Syne Mono',monospace;font-size:0.55rem;letter-spacing:3px;color:rgba(170,58,58,0.35);margin-bottom:1.5rem;}
+.ld-lines{text-align:left;width:100%;margin-bottom:1.8rem;}
+.ld-line{font-family:'Syne Mono',monospace;font-size:0.52rem;letter-spacing:2px;color:rgba(170,58,58,0.25);line-height:2.2;opacity:0;transition:opacity .35s;}
+.ld-line.on{opacity:1;}
+.ld-line .ok{color:rgba(220,100,100,0.6);}
+.ld-btn{padding:0.65rem 2.5rem;background:transparent;border:1px solid rgba(170,58,58,0.2);color:var(--red2);font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:5px;text-transform:uppercase;cursor:pointer;transition:all .3s;opacity:0;pointer-events:none;}
+.ld-btn.rdy{opacity:1;pointer-events:all;}
+.ld-btn:hover{background:rgba(170,58,58,0.06);border-color:rgba(170,58,58,0.5);}
+#main{display:none;}
+#main.on{display:block;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes pdrift{0%,100%{filter:drop-shadow(0 0 8px rgba(170,58,58,0.2))}50%{filter:drop-shadow(0 0 24px rgba(170,58,58,0.5))}}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,2,4,0.92);border-bottom:1px solid rgba(170,58,58,0.08);backdrop-filter:blur(12px);}
+.nav-inner{max-width:900px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:52px;}
+.nav-logo{font-family:'Cinzel',serif;font-size:0.75rem;letter-spacing:4px;color:var(--red3);text-decoration:none;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-family:'Syne Mono',monospace;font-size:0.5rem;letter-spacing:3px;color:rgba(170,58,58,0.45);text-transform:uppercase;text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--red2);}
+@media(max-width:600px){.nav-links{display:none;}}
+
+header{position:relative;z-index:2;text-align:center;padding:8rem 2rem 4rem;overflow:hidden;}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(170,58,58,0.06),transparent 70%);pointer-events:none;}
+.h-eyebrow{font-family:'Syne Mono',monospace;font-size:0.55rem;letter-spacing:7px;color:rgba(170,58,58,0.35);text-transform:uppercase;margin-bottom:1rem;}
+.h-by{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(2.2rem,5vw,4.5rem);color:var(--red3);letter-spacing:0.08em;text-shadow:0 0 60px rgba(170,58,58,0.3);display:block;margin-bottom:0.15rem;}
+.h-byline{font-family:'Syne Mono',monospace;font-size:0.45rem;letter-spacing:5px;color:rgba(170,58,58,0.2);text-transform:uppercase;margin-bottom:1.2rem;}
+.h-title{font-family:'Cinzel',serif;font-weight:900;font-size:clamp(2.5rem,7vw,6rem);color:var(--white);letter-spacing:0.12em;line-height:1;margin-bottom:0.5rem;text-shadow:0 0 60px rgba(170,58,58,0.12);}
+.h-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2.5vw,1.5rem);color:var(--red2);letter-spacing:0.14em;font-style:italic;margin-bottom:2rem;}
+.h-divider{display:flex;align-items:center;gap:1.5rem;max-width:300px;margin:0 auto 2.5rem;}
+.h-divider::before,.h-divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(170,58,58,0.25),transparent);}
+.h-divider span{color:rgba(170,58,58,0.35);font-size:0.8rem;}
+.planet-deco{margin:0 auto;display:block;animation:pdrift 8s ease-in-out infinite;}
+
+.wrap{max-width:900px;margin:0 auto;padding:3rem 2rem 6rem;position:relative;z-index:2;}
+
+.section{margin-bottom:5rem;opacity:0;transform:translateY(20px);transition:opacity .9s,transform .9s;}
+.section.vs{opacity:1;transform:translateY(0);}
+.s-head{display:flex;align-items:center;gap:1.4rem;margin-bottom:2.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);position:relative;}
+.s-head::after{content:'';position:absolute;bottom:-1px;left:0;width:80px;height:1px;background:linear-gradient(90deg,var(--red),transparent);}
+.s-num{font-family:'Syne Mono',monospace;font-size:0.6rem;letter-spacing:4px;color:rgba(170,58,58,0.3);}
+.s-title{font-family:'Cinzel',serif;font-size:clamp(1rem,2.5vw,1.4rem);color:var(--red3);letter-spacing:0.1em;}
+
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
+@media(max-width:580px){.info-grid{grid-template-columns:1fr 1fr;}}
+.info-cell{background:rgba(170,58,58,0.02);border:1px solid var(--border);padding:1.1rem 1.3rem;position:relative;overflow:hidden;}
+.info-cell::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--red),transparent);opacity:0.3;}
+.info-lbl{font-family:'Syne Mono',monospace;font-size:0.5rem;letter-spacing:3px;color:var(--red);text-transform:uppercase;opacity:0.55;display:block;margin-bottom:0.5rem;}
+.info-val{font-size:1.05rem;color:var(--white);}
+
+.prose-wrap{position:relative;padding-left:1.8rem;border-left:1px solid rgba(170,58,58,0.1);}
+.prose-wrap::before{content:'';position:absolute;top:0;left:-1px;width:1px;height:50px;background:linear-gradient(180deg,var(--red),transparent);}
+.prose-p{font-size:1.12rem;line-height:2.1;color:var(--muted);margin-bottom:1.3rem;}
+.prose-p:last-child{margin-bottom:0;}
+
+.carac-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+@media(max-width:520px){.carac-grid{grid-template-columns:1fr;}}
+.carac-item{background:rgba(170,58,58,0.02);border:1px solid var(--border);padding:1.2rem 1.4rem;display:flex;align-items:flex-start;gap:1rem;}
+.carac-dot{width:6px;height:6px;border:1px solid var(--red2);flex-shrink:0;transform:rotate(45deg);margin-top:0.5rem;background:rgba(170,58,58,0.2);}
+.carac-word{font-family:'Cinzel',serif;font-size:0.85rem;color:var(--red3);letter-spacing:2px;margin-bottom:0.3rem;}
+.carac-desc{font-size:0.9rem;color:var(--muted);line-height:1.7;}
+
+.motiv-block{background:rgba(170,58,58,0.025);border:1px solid var(--border2);padding:2rem;position:relative;overflow:hidden;}
+.motiv-block::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:0.5;}
+.motiv-label{font-family:'Syne Mono',monospace;font-size:0.55rem;letter-spacing:4px;color:var(--red);text-transform:uppercase;margin-bottom:0.8rem;display:block;opacity:0.7;}
+.motiv-text{font-size:1.08rem;color:var(--muted);line-height:2.1;}
+
+.obj-main{background:rgba(170,58,58,0.03);border:1px solid var(--border2);padding:2rem;margin-bottom:2rem;position:relative;overflow:hidden;}
+.obj-main::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:0.6;}
+.obj-main::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(170,58,58,0.15),transparent);}
+.obj-main-label{font-family:'Syne Mono',monospace;font-size:0.6rem;letter-spacing:4px;color:var(--red);text-transform:uppercase;margin-bottom:0.7rem;display:block;}
+.obj-main-title{font-family:'Cinzel',serif;font-size:1.3rem;color:var(--red3);margin-bottom:0.9rem;letter-spacing:2px;text-shadow:0 0 30px rgba(170,58,58,0.2);}
+.obj-main-text{font-size:1rem;color:var(--muted);line-height:2;}
+
+.obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+@media(max-width:520px){.obj-grid{grid-template-columns:1fr;}}
+.obj-wide{grid-column:1/-1;}
+.obj-card{background:rgba(170,58,58,0.02);border:1px solid var(--border);padding:1.5rem;position:relative;overflow:hidden;}
+.obj-card::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:linear-gradient(180deg,var(--red),transparent);}
+.obj-type{font-family:'Syne Mono',monospace;font-size:0.52rem;letter-spacing:3px;color:var(--red);text-transform:uppercase;opacity:0.65;display:block;margin-bottom:0.6rem;}
+.obj-name{font-family:'Cinzel',serif;font-size:0.95rem;color:var(--red2);margin-bottom:0.9rem;letter-spacing:2px;}
+.obj-text{font-size:0.95rem;color:var(--muted);line-height:1.85;}
+.obj-link{background:rgba(170,58,58,0.03);border:1px solid rgba(170,58,58,0.08);padding:1rem 1.2rem;margin-top:0.9rem;}
+.obj-link-label{font-family:'Syne Mono',monospace;font-size:0.5rem;letter-spacing:3px;color:rgba(170,58,58,0.6);text-transform:uppercase;margin-bottom:0.4rem;display:block;}
+.obj-link-text{font-size:0.9rem;color:rgba(240,216,216,0.5);line-height:1.85;}
+.obj-sub{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin:1rem 0;}
+.obj-sub-block{background:rgba(170,58,58,0.03);border:1px solid rgba(170,58,58,0.08);padding:1rem;}
+.obj-sub-lbl{font-family:'Syne Mono',monospace;font-size:0.5rem;letter-spacing:2px;color:rgba(170,58,58,0.45);text-transform:uppercase;margin-bottom:0.5rem;display:block;}
+.obj-sub-text{font-size:0.88rem;color:var(--muted);line-height:1.8;}
+.obj-cond{background:rgba(170,58,58,0.03);border:1px solid rgba(170,58,58,0.08);padding:1rem;margin-bottom:0.9rem;}
+
+.xp-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+@media(max-width:520px){.xp-list{grid-template-columns:1fr;}}
+.xp-row{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;background:rgba(170,58,58,0.02);border:1px solid rgba(170,58,58,0.07);font-size:1rem;color:var(--muted);position:relative;overflow:hidden;transition:border-color .3s,background .3s;}
+.xp-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--red),transparent);opacity:0.45;}
+.xp-row:hover{border-color:rgba(170,58,58,0.18);background:rgba(170,58,58,0.04);}
+.xp-dot{width:5px;height:5px;border:1px solid var(--red2);flex-shrink:0;transform:rotate(45deg);background:rgba(170,58,58,0.12);}
+.xp-name{flex:1;}
+.xp-tag{font-family:'Syne Mono',monospace;font-size:0.45rem;letter-spacing:2px;color:rgba(170,58,58,0.35);text-transform:uppercase;}
+
+footer{position:relative;z-index:2;text-align:center;padding:3rem 2rem 4.5rem;border-top:1px solid var(--border);}
+.f-text{font-family:'Syne Mono',monospace;font-size:0.5rem;letter-spacing:4px;color:rgba(170,58,58,0.15);text-transform:uppercase;}
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+
+<div id="load">
+  <div class="ld-tag">◆ &nbsp; Dossier Candidature — SKR Dragon Ball RP &nbsp; ◆</div>
+  <div class="ld-box">
+    <svg style="margin:0 auto 1.5rem;display:block;animation:pdrift 4s ease-in-out infinite" width="80" height="80" viewBox="0 0 80 80" fill="none">
+      <circle cx="40" cy="40" r="30" stroke="rgba(170,58,58,0.3)" stroke-width="0.7" fill="rgba(170,58,58,0.03)"/>
+      <circle cx="40" cy="40" r="22" stroke="rgba(170,58,58,0.15)" stroke-width="0.5" fill="rgba(170,58,58,0.02)"/>
+      <rect x="28" y="28" width="24" height="24" stroke="rgba(170,58,58,0.2)" stroke-width="0.6" fill="none" transform="rotate(15,40,40)"/>
+      <circle cx="40" cy="40" r="8" stroke="rgba(170,58,58,0.5)" stroke-width="0.6" fill="rgba(80,20,20,0.3)"/>
+      <circle cx="40" cy="40" r="3" fill="rgba(220,106,106,0.4)"/>
+      <line x1="40" y1="10" x2="40" y2="18" stroke="rgba(170,58,58,0.3)" stroke-width="0.6"/>
+      <line x1="40" y1="62" x2="40" y2="70" stroke="rgba(170,58,58,0.3)" stroke-width="0.6"/>
+      <line x1="10" y1="40" x2="18" y2="40" stroke="rgba(170,58,58,0.3)" stroke-width="0.6"/>
+      <line x1="62" y1="40" x2="70" y2="40" stroke="rgba(170,58,58,0.3)" stroke-width="0.6"/>
+    </svg>
+    <div class="ld-title">Dossier de Candidature</div>
+    <div class="ld-sub">Tozuo · Cyborg Ruban Rouge</div>
+    <div class="ld-bw"><div class="ld-bf" id="lbar"></div></div>
+    <div class="ld-pct" id="lpct">0%</div>
+    <div class="ld-lines">
+      <div class="ld-line" id="ll1">› Connexion serveur SKR Dragon Ball RP<span style="animation:blink .8s infinite;display:inline-block">_</span></div>
+      <div class="ld-line" id="ll2">› Identification unité Tozuo <span class="ok">[ CONFIRMÉE ]</span></div>
+      <div class="ld-line" id="ll3">› Scan systèmes mécaniques<span style="animation:blink .8s infinite;display:inline-block">_</span></div>
+      <div class="ld-line" id="ll4">› Affiliation Ruban Rouge <span class="ok">[ OK ]</span></div>
+      <div class="ld-line" id="ll5">› Chargement du dossier complet<span style="animation:blink .8s infinite;display:inline-block">_</span></div>
+      <div class="ld-line" id="ll6">› Accès autorisé <span class="ok">[ CANDIDATURE ]</span></div>
+    </div>
+    <button class="ld-btn" id="lbtn" onclick="enter()">◆ &nbsp; Accéder au Dossier &nbsp; ◆</button>
+  </div>
+</div>
+
+<div id="main">
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">◆ TOZUO</a>
+    <ul class="nav-links">
+      <li><a href="#identite">Identité</a></li>
+      <li><a href="#histoire">Histoire</a></li>
+      <li><a href="#caractere">Caractère</a></li>
+      <li><a href="#motivation">Motivation</a></li>
+      <li><a href="#objectifs">Objectifs</a></li>
+      <li><a href="#xp">Expériences</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header>
+  <p class="h-eyebrow">◆ SKR Dragon Ball RP · Candidature Officielle ◆</p>
+  <span class="h-by">Manatsu</span>
+  <p class="h-byline">by Manatsu</p>
+  <h1 class="h-title">TOZUO</h1>
+  <p class="h-sub">Cyborg Militaire · Ruban Rouge</p>
+  <div class="h-divider"><span>◆</span></div>
+  <svg class="planet-deco" width="140" height="140" viewBox="0 0 140 140" fill="none">
+    <circle cx="70" cy="70" r="52" stroke="rgba(170,58,58,0.18)" stroke-width="0.7" fill="rgba(170,58,58,0.015)"/>
+    <rect x="46" y="46" width="48" height="48" stroke="rgba(170,58,58,0.1)" stroke-width="0.5" fill="none" transform="rotate(10,70,70)"/>
+    <rect x="54" y="54" width="32" height="32" stroke="rgba(170,58,58,0.08)" stroke-width="0.5" fill="none" transform="rotate(30,70,70)"/>
+    <circle cx="70" cy="70" r="16" stroke="rgba(170,58,58,0.3)" stroke-width="0.6" fill="rgba(60,20,20,0.2)"/>
+    <circle cx="70" cy="70" r="6" stroke="rgba(170,58,58,0.45)" stroke-width="0.5" fill="rgba(170,58,58,0.08)"/>
+    <circle cx="70" cy="70" r="2.5" fill="rgba(220,106,106,0.4)"/>
+    <line x1="70" y1="18" x2="70" y2="30" stroke="rgba(170,58,58,0.2)" stroke-width="0.5"/>
+    <line x1="70" y1="110" x2="70" y2="122" stroke="rgba(170,58,58,0.2)" stroke-width="0.5"/>
+    <line x1="18" y1="70" x2="30" y2="70" stroke="rgba(170,58,58,0.2)" stroke-width="0.5"/>
+    <line x1="110" y1="70" x2="122" y2="70" stroke="rgba(170,58,58,0.2)" stroke-width="0.5"/>
+    <circle cx="70" cy="18" r="1.5" fill="rgba(170,58,58,0.2)"/>
+    <circle cx="70" cy="122" r="1.5" fill="rgba(170,58,58,0.2)"/>
+    <circle cx="18" cy="70" r="1.5" fill="rgba(170,58,58,0.2)"/>
+    <circle cx="122" cy="70" r="1.5" fill="rgba(170,58,58,0.2)"/>
+  </svg>
+</header>
+
+<div class="wrap">
+
+  <!-- 01 IDENTITÉ -->
+  <div class="section" id="identite">
+    <div class="s-head"><span class="s-num">01</span><h2 class="s-title">Fiche d'Identité</h2></div>
+    <div class="info-grid">
+      <div class="info-cell"><span class="info-lbl">Pseudo Discord</span><div class="info-val">Manatsu</div></div>
+      <div class="info-cell"><span class="info-lbl">Personnage</span><div class="info-val">Tozuo</div></div>
+      <div class="info-cell"><span class="info-lbl">Affiliation</span><div class="info-val">Ruban Rouge</div></div>
+    </div>
+  </div>
+
+  <!-- 02 HISTOIRE -->
+  <div class="section" id="histoire">
+    <div class="s-head"><span class="s-num">02</span><h2 class="s-title">Histoire du Personnage</h2></div>
+    <div class="prose-wrap">
+      <p class="prose-p">Tozuo était un gamin ordinaire curieux qui faisait de l'urbex. Il s'introduisait dans des bâtiments abandonnés pour explorer documenter voir ce que les gens laissent derrière eux quand ils partent. Rien de dangereux selon lui.</p>
+      <p class="prose-p">Un soir il est entré dans ce qui ressemblait à une ancienne usine désaffectée en bordure de ville. Ce qu'il ne savait pas c'est que le bâtiment appartenait au Ruban Rouge. Un laboratoire de transformation cyborg mis en veille mais pas vide. Les systèmes de sécurité étaient encore actifs.</p>
+      <p class="prose-p">Il a été capturé neutralisé et au lieu d'être éliminé il a été jugé utilisable. Le Ruban Rouge ne gaspille pas les ressources. Il a été converti  une partie de son corps remplacée par des implants mécaniques militaires ses capacités physiques augmentées bien au-delà de ce qu'un humain peut atteindre. Il ne se souvient pas de tout ce qui s'est passé pendant la transformation.</p>
+      <p class="prose-p">Le Ruban Rouge l'intéresse parce qu'il a les moyens de faire bouger les choses. Il est là pour être au centre de ce qui se décide.</p>
+    </div>
+  </div>
+
+  <!-- 03 CARACTÈRE -->
+  <div class="section" id="caractere">
+    <div class="s-head"><span class="s-num">03</span><h2 class="s-title">Le Caractère</h2></div>
+    <div class="carac-grid">
+      <div class="carac-item">
+        <div class="carac-dot"></div>
+        <div>
+          <div class="carac-word">Froid</div>
+          <div class="carac-desc">La transformation a effacé beaucoup de choses. Tozuo parle peu réagit peu. Il observe et calcule avant de faire quoi que ce soit</div>
+        </div>
+      </div>
+      <div class="carac-item">
+        <div class="carac-dot"></div>
+        <div>
+          <div class="carac-word">Méthodique</div>
+          <div class="carac-desc">Il n'improvise pas. Chaque mission chaque combat chaque interaction est traitée comme un problème à résoudre avec la méthode la plus efficace</div>
+        </div>
+      </div>
+      <div class="carac-item">
+        <div class="carac-dot"></div>
+        <div>
+          <div class="carac-word">Loyal</div>
+          <div class="carac-desc">Le Ruban Rouge l'a fait ce qu'il est. Il leur doit ça. Tant qu'ils ne le trahissent pas il fait son travail sans poser de questions</div>
+        </div>
+      </div>
+      <div class="carac-item">
+        <div class="carac-dot"></div>
+        <div>
+          <div class="carac-word">Curieux</div>
+          <div class="carac-desc">Un reste de ce qu'il était avant. Il observe encore les gens les environnements. Cette habitude d'explorer ne l'a pas quitté même sous une autre forme</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 MOTIVATION -->
+  <div class="section" id="motivation">
+    <div class="s-head"><span class="s-num">04</span><h2 class="s-title">Motivation</h2></div>
+    <div class="motiv-block">
+      <span class="motiv-label">◆ Pourquoi je veux jouer un Cyborg</span>
+      <div class="motiv-text">Ce qui me donne envie de jouer Tozuo c'est de jouer un Cyborg qui joue pas juste la force. Un Cyborg qui sait parler aux gens qui se débrouille dans les groupes qui construit des trucs sur le long terme.<br><br>Le RP politique et les missions m'intéressent autant que les combats. Créer des liens avoir la confiance des gens influencer ce qui se passe sans que ça se voit. C'est vraiment ça qui me motive  jouer un perso qui a un plan et qui le suit jusqu'au bout.</div>
+    </div>
+  </div>
+
+  <!-- 05 OBJECTIFS -->
+  <div class="section" id="objectifs">
+    <div class="s-head"><span class="s-num">05</span><h2 class="s-title">Objectifs</h2></div>
+
+    <div class="obj-main">
+      <span class="obj-main-label">◆ Objectif Principal</span>
+      <div class="obj-main-title">Contrôler la Terre</div>
+      <div class="obj-main-text">Pas par la force brute comme les autres cyborgs. Tozuo veut contrôler la Terre discrètement. En tenant les fils des négociations en sachant ce qui se trame en étant consulté avant que les décisions se prennent.</div>
+    </div>
+
+    <div class="obj-card obj-wide" style="margin-bottom:1.5rem;">
+      <span class="obj-type">◈ Projet RP · Long terme</span>
+      <div class="obj-name">La Table de Négociation — Ruban Rouge et Capsule Corp</div>
+      <div class="obj-text" style="margin-bottom:1rem;">Une table neutre où les deux factions peuvent parler sans que ça finisse en combat.</div>
+      <div class="obj-sub">
+        <div class="obj-sub-block">
+          <span class="obj-sub-lbl">Ce que c'est en apparence</span>
+          <div class="obj-sub-text">Un espace neutre de discussion entre factions.</div>
+        </div>
+        <div class="obj-sub-block">
+          <span class="obj-sub-lbl">Ce que c'est vraiment</span>
+          <div class="obj-sub-text">Une façon pour Tozuo de voir comment chaque faction prend ses décisions quand elle pense parler à quelqu'un de neutre. La meilleure façon de juger quelqu'un c'est de l'écouter parler librement.</div>
+        </div>
+      </div>
+      <div class="obj-cond">
+        <span class="obj-sub-lbl">Conditions pour que ça existe</span>
+        <div class="obj-sub-text">Tozuo doit d'abord avoir une place sérieuse au Ruban Rouge pour que sa parole compte. Il doit aussi avoir établi des contacts du côté Capsule Corp. Sans crédibilité des deux côtés personne ne viendra s'asseoir à cette table.</div>
+      </div>
+      <div class="obj-link"><span class="obj-link-label">↗ Lien objectif principal</span><div class="obj-link-text">Tenir la table de négociation c'est tenir les deux factions. Tozuo n'a pas besoin d'être au sommet d'une faction pour tout contrôler. Il lui suffit d'être celui qui organise les discussions.</div></div>
+    </div>
+
+    <div class="obj-grid">
+      <div class="obj-card">
+        <span class="obj-type">Personnel</span>
+        <div class="obj-name">Devenir plus fort</div>
+        <div class="obj-text">Progresser en combat et en capacités. Maîtriser ses implants son armement intégré sa vitesse. S'améliorer est la seule constante qui lui reste depuis la transformation.</div>
+        <div class="obj-link"><span class="obj-link-label">↗ Lien objectif principal</span><div class="obj-link-text">Pour que sa parole pèse dans les négociations il faut aussi qu'il soit crédible sur le terrain. Un cyborg faible ne convainc personne.</div></div>
+      </div>
+
+      <div class="obj-card">
+        <span class="obj-type">Ruban Rouge</span>
+        <div class="obj-name">Faire remonter la section diplomatique</div>
+        <div class="obj-text">La section diplomatique du Ruban Rouge n'est plus vraiment active. Tozuo veut changer ça. Il veut organiser des cours former des membres créer des liens avec d'autres factions et remettre cette section au niveau.</div>
+        <div class="obj-link"><span class="obj-link-label">↗ Lien objectif principal</span><div class="obj-link-text">Une section diplomatique forte c'est une base solide pour que la table de négociation existe et soit prise au sérieux.</div></div>
+      </div>
+
+      <div class="obj-card">
+        <span class="obj-type">Ruban Rouge</span>
+        <div class="obj-name">Prouver sa valeur</div>
+        <div class="obj-text">Il veut montrer ce qu'il vaut par les actes. Missions entraînements situations difficiles. Être quelqu'un sur qui on peut compter.</div>
+        <div class="obj-link"><span class="obj-link-label">↗ Lien objectif principal</span><div class="obj-link-text">Sans crédibilité terrain personne ne le prend au sérieux quand il veut organiser des discussions entre factions.</div></div>
+      </div>
+
+      <div class="obj-card">
+        <span class="obj-type">Ruban Rouge</span>
+        <div class="obj-name">Monter dans la hiérarchie</div>
+        <div class="obj-text">Plus on monte plus on voit comment les vraies décisions se prennent et qui les prend vraiment.</div>
+        <div class="obj-link"><span class="obj-link-label">↗ Lien objectif principal</span><div class="obj-link-text">Un rang élevé au Ruban Rouge lui donne du poids quand il s'adresse à Capsule Corp. Les deux côtés de la table doivent le respecter.</div></div>
+      </div>
+
+      <div class="obj-card obj-wide">
+        <span class="obj-type">Long terme · RP</span>
+        <div class="obj-name">Former une unité de combat d'élite</div>
+        <div class="obj-text">Tozuo veut créer un groupe de combat au sein du Ruban Rouge. Un petit groupe formé à la dure avec des standards militaires sérieux. Il veut choisir les membres lui-même selon leurs capacités et leur sérieux pas selon leur rang ou leur ancienneté.<br><br>L'idée c'est d'avoir une équipe capable d'intervenir rapidement sur des situations compliquées. Des gens disciplinés entraînés ensemble qui savent travailler en groupe. Tozuo veut diriger cette unité et la construire progressivement.</div>
+        <div class="obj-link"><span class="obj-link-label">↗ Lien objectif principal</span><div class="obj-link-text">Des soldats sous ses ordres directs c'est des yeux et des bras sur le terrain. Il reste informé de tout ce qui se passe sans avoir besoin d'y être lui-même.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 XP -->
+  <div class="section" id="xp">
+    <div class="s-head"><span class="s-num">06</span><h2 class="s-title">Expériences RP</h2></div>
+    <ul class="xp-list">
+      <li class="xp-row"><div class="xp-dot"></div><span class="xp-name">FSC</span></li>
+      <li class="xp-row"><div class="xp-dot"></div><span class="xp-name">FOC JJK</span></li>
+      <li class="xp-row"><div class="xp-dot"></div><span class="xp-name">SDA</span></li>
+      <li class="xp-row"><div class="xp-dot"></div><span class="xp-name">HDS <span class="xp-tag">Jinchuriki de Shukaku</span></span></li>
+      <li class="xp-row"><div class="xp-dot"></div><span class="xp-name">SKZ</span></li>
+      <li class="xp-row"><div class="xp-dot"></div><span class="xp-name">Dark RP</span></li>
+      <li class="xp-row"><div class="xp-dot"></div><span class="xp-name">Solve</span></li>
+      <li class="xp-row"><div class="xp-dot"></div><span class="xp-name">TKG <span class="xp-tag">Ghoul · 3000 RC</span></span></li>
+      <li class="xp-row"><div class="xp-dot"></div><span class="xp-name">Ryukai</span></li>
+      <li class="xp-row"><div class="xp-dot"></div><span class="xp-name">Zenkai</span></li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <div class="f-text">SKR Dragon Ball RP · Tozuo · Cyborg Militaire · Candidature Officielle</div>
+</footer>
+</div>
+
+<script>
+let pct=0;
+const bar=document.getElementById('lbar'),pctEl=document.getElementById('lpct');
+const lines=['ll1','ll2','ll3','ll4','ll5','ll6'];
+const lT=[300,900,1500,2100,2700,3200];
+const pT=[0,400,1000,1600,2200,2800,3500];
+const pV=[0,15,30,50,68,85,100];
+pT.forEach((t,i)=>setTimeout(()=>{const v=pV[i];const iv=setInterval(()=>{if(pct<v){pct++;bar.style.width=pct+'%';pctEl.textContent=pct+'%';}else clearInterval(iv);},18);},t));
+lT.forEach((t,i)=>setTimeout(()=>document.getElementById(lines[i]).classList.add('on'),t));
+setTimeout(()=>document.getElementById('lbtn').classList.add('rdy'),3700);
+function enter(){document.getElementById('load').classList.add('hide');document.getElementById('main').classList.add('on');setTimeout(()=>document.getElementById('load').style.display='none',1000);}
+
+const cv=document.getElementById('cv'),ctx=cv.getContext('2d');
+let W,H,T=0;
+function rsz(){W=cv.width=innerWidth;H=cv.height=innerHeight;}
+rsz();window.addEventListener('resize',rsz);
+function rn(a,b){return Math.random()*(b-a)+a;}
+class Spark{constructor(){this.r(true);}r(i){this.x=rn(0,W);this.y=i?rn(0,H):H+5;this.s=rn(0.3,2);this.sy=-(rn(0.05,0.22));this.sx=rn(-0.05,0.05);this.a=rn(0.04,0.18);this.li=1;this.dc=rn(0.0003,0.0008);this.pulse=rn(0,Math.PI*2);this.ps=rn(0.02,0.05);}up(){this.pulse+=this.ps;this.x+=this.sx;this.y+=this.sy;this.li-=this.dc;if(this.y<-5||this.li<=0)this.r(false);}dr(){const a=this.a*this.li*(0.5+Math.sin(this.pulse)*0.5);ctx.beginPath();ctx.arc(this.x,this.y,this.s,0,Math.PI*2);ctx.fillStyle=`rgba(170,58,58,${a})`;ctx.fill();}}
+class Streak{constructor(){this.r(true);}r(i){this.x=rn(0,W);this.y=i?rn(0,H):rn(-150,-5);this.h=rn(15,60);this.sy=rn(0.3,1);this.a=rn(0.03,0.09);this.li=1;this.dc=rn(0.0004,0.001);}up(){this.y+=this.sy;this.li-=this.dc;if(this.y>H+80||this.li<=0)this.r(false);}dr(){const g=ctx.createLinearGradient(this.x,this.y,this.x,this.y+this.h);g.addColorStop(0,'transparent');g.addColorStop(0.5,`rgba(170,58,58,${this.a*this.li})`);g.addColorStop(1,'transparent');ctx.beginPath();ctx.moveTo(this.x,this.y);ctx.lineTo(this.x,this.y+this.h);ctx.strokeStyle=g;ctx.lineWidth=0.5;ctx.stroke();}}
+class Star2{constructor(){this.x=rn(0,1);this.y=rn(0,1);this.s=rn(0.2,1.2);this.a=rn(0.05,0.3);this.pulse=rn(0,Math.PI*2);this.ps=rn(0.005,0.02);}dr(){this.pulse+=this.ps;const a=this.a*(0.5+Math.sin(this.pulse)*0.5);ctx.beginPath();ctx.arc(this.x*W,this.y*H,this.s,0,Math.PI*2);ctx.fillStyle=`rgba(240,180,180,${a})`;ctx.fill();}}
+const sparks=Array.from({length:80},()=>new Spark());
+const streaks=Array.from({length:20},()=>new Streak());
+const stars=Array.from({length:120},()=>new Star2());
+function animate(){T+=.008;ctx.clearRect(0,0,W,H);const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#080204');g.addColorStop(1,'#0c0405');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);stars.forEach(s=>s.dr());streaks.forEach(s=>{s.up();s.dr();});sparks.forEach(k=>{k.up();k.dr();});requestAnimationFrame(animate);}
+animate();
+const obs=new IntersectionObserver(e=>e.forEach(e2=>{if(e2.isIntersecting)e2.target.classList.add('vs');}),{threshold:0.06});
+document.querySelectorAll('.section').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
